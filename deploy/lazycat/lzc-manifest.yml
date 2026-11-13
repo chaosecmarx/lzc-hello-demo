@@ -1,0 +1,17 @@
+lzc-sdk-version: '0.1'
+name: Hello Lazycat
+package: cloud.lazycat.app.hello-lazycat
+version: 1.0.0
+description: 用懒猫应用部署流水线自动构建上线的极简 demo 应用
+
+application:
+  subdomain: hello-lazycat
+  multi_instance: false
+  background_task: false
+  privileged: false
+  routes:
+    - /=http://hello-lazycat.cloud.lazycat.app.hello-lazycat.lzcapp:80
+
+services:
+  hello-lazycat:
+    image: registry.lazycat.cloud/user/hello-lazycat:1.0.0

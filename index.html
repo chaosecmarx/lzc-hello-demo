@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello Lazycat</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: radial-gradient(circle at 30% 20%, #1f2937, #0b1020 70%);
+      color: #e8eefc; padding: 24px;
+    }
+    .card {
+      width: min(560px, 100%); padding: 36px 32px; border-radius: 20px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(12px); box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #22d3ee; display: inline-block; margin-right: 8px; box-shadow: 0 0 12px #22d3ee; }
+    h1 { margin: 0 0 8px; font-size: 26px; letter-spacing: .5px; }
+    p.sub { margin: 0 0 24px; color: #9fb0cc; font-size: 14px; }
+    .clock { font-variant-numeric: tabular-nums; font-size: 40px; font-weight: 600; letter-spacing: 2px; }
+    .meta { margin-top: 22px; font-size: 13px; color: #8fa3c2; line-height: 1.9; }
+    code { background: rgba(255,255,255,.1); padding: 1px 6px; border-radius: 6px; font-size: 12px; }
+    button {
+      margin-top: 24px; width: 100%; padding: 12px; border-radius: 12px; cursor: pointer;
+      border: 1px solid rgba(34,211,238,.5); background: rgba(34,211,238,.15); color: #a5f3fc;
+      font-size: 15px; transition: .2s;
+    }
+    button:hover { background: rgba(34,211,238,.28); }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1><span class="dot"></span>Hello Lazycat</h1>
+    <p class="sub">这个页面由懒猫微服「应用部署流水线」自动构建并上线的极简 demo 应用。</p>
+    <div class="clock" id="clock">--:--:--</div>
+    <button id="ping">点我一下</button>
+    <div class="meta">
+      容器：<code>nginx:alpine</code><br />
+      打包：<code>lzc-cli</code> → <code>.lpk</code><br />
+      访问时间：<span id="now">-</span>
+    </div>
+  </main>
+  <script>
+    const pad = n => String(n).padStart(2, '0');
+    function tick() {
+      const d = new Date();
+      document.getElementById('clock').textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+      document.getElementById('now').textContent = d.toLocaleString('zh-CN');
+    }
+    tick(); setInterval(tick, 1000);
+    let n = 0;
+    document.getElementById('ping').addEventListener('click', e => {
+      n++;
+      e.target.textContent = `你已经点了 ${n} 次 🎉`;
+    });
+  </script>
+</body>
+</html>
